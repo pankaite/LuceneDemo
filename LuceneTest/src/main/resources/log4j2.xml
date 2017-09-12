@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="info" name="plat" packages="">
+	<Properties>
+		<Property name="logpath">../logs</Property>
+		<Property name="sysname">plat</Property>
+	</Properties>
+	<Appenders>
+		<Console name="console" target="SYSTEM_OUT">
+			<PatternLayout>
+				<Pattern>[${sysname}]%-5p %d - %c - %m%n</Pattern>
+			</PatternLayout>
+		</Console>
+		<RollingFile name="rollingfile" fileName="${logpath}/${sysname}.log"
+			filePattern="${logpath}/${sysname}.%d{yyyy-MM-dd}.log">
+			<PatternLayout>
+				<Pattern>[${sysname}]%-5p %d - %c - %m%n</Pattern>
+			</PatternLayout>
+			<Policies>
+				<TimeBasedTriggeringPolicy />
+				<SizeBasedTriggeringPolicy size="10MB"/>
+			</Policies>
+		</RollingFile>
+	</Appenders>
+	<Loggers>
+		<Logger name="org.springframework" level="debug"></Logger>
+		<Logger name="org.apache" level="warn"></Logger>
+		<Root level="info">
+			<AppenderRef ref="console" />
+			<AppenderRef ref="rollingfile" />
+		</Root>
+	</Loggers>
+</Configuration>
